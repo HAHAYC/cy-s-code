@@ -160,3 +160,7 @@ if __name__ == "__main__":
         if args.export_model:
             # change train url to {model, metric.json}
             mox.export_model(args.train_url)
+            for i in mox.file.list_directory(os.path.join(args.train_url, 'model')):
+                if 'params' in i:
+                    mox.file.rename(os.path.join(args.train_url, 'model', i), 
+                               os.path.join(args.train_url, 'model', '-0000.params'))
