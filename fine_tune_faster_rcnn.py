@@ -181,6 +181,9 @@ def train_faster_rcnn():
         if args.export_model:
             # change train url to {model, metric.json}
             mox.export_model(args.train_url)
-
+            symbol = mox.get_model('object_detection', 'resnet_rcnn',
+                                   num_classes=args.num_classes, is_train=False)
+            symbol.save(os.path.join(args.train_url, 'model',
+                                     'fine_tune-symbol.json'))
 if __name__ == '__main__':
     train_faster_rcnn()
